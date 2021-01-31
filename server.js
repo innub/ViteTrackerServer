@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5001;
 require("dotenv/config");
 const mongo = require("./mongo");
 
+app.use(require("./middleware/headerControl"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/latest", require("./routes/latest"));
