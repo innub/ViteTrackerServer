@@ -35,22 +35,25 @@ async function ScanPage(url) {
         img = 0;
       }
 
-      let price;
-      try {
-        price = document.querySelector("#priceblock_ourprice").innerHtml;
-      } catch {
-        price = document.querySelector("#priceblock_saleprice").innerHTML;
-      }
+      let ourPriceEl = document.querySelector("#priceblock_ourprice");
+      let salePriceEl = document.querySelector("#priceblock_saleprice");
+      const price =
+        ourPriceEl != null
+          ? ourPriceEl.innerHTML
+          : salePriceEl != null
+          ? salePriceEl.innerHTML
+          : "Currently unavailable";
 
       obj.push({
         url: url,
         title: title,
-        imgUrl: imgUrl,
         price: price,
+        imgUrl: imgUrl,
       });
 
       return obj;
     }, url);
+
     await browser.close();
     return data;
   } catch {
